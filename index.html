@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Faithful Detailing – West Chester, OH</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #0e1e3a;
+    --navy-mid: #1a3158;
+    --navy-light: #2a4a7a;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --white: #ffffff;
+    --off-white: #f5f4f0;
+    --text-muted: #6b7a92;
+    --border: rgba(14,30,58,0.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    color: var(--navy);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 5%;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 24px rgba(14,30,58,0.08); }
+  .nav-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo .cross {
+    width: 22px; height: 22px;
+    position: relative; flex-shrink: 0;
+  }
+  .nav-logo .cross::before,
+  .nav-logo .cross::after {
+    content: ''; position: absolute;
+    background: var(--navy); border-radius: 2px;
+  }
+  .nav-logo .cross::before { width: 3px; height: 100%; left: 50%; transform: translateX(-50%); }
+  .nav-logo .cross::after  { width: 100%; height: 3px; top: 38%; }
+  .nav-logo span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 600;
+    color: var(--navy); letter-spacing: 0.04em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem; font-weight: 400; letter-spacing: 0.06em;
+    text-transform: uppercase; text-decoration: none;
+    color: var(--navy); opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta {
+    background: var(--navy); color: var(--white) !important;
+    opacity: 1 !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 4px;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--navy-light) !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+  .hamburger span { width: 24px; height: 2px; background: var(--navy); border-radius: 2px; transition: all 0.3s; }
+  .mobile-menu {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--white); z-index: 99;
+    flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 500;
+    color: var(--navy); text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+  .mobile-close {
+    position: absolute; top: 1.5rem; right: 5%;
+    font-size: 1.8rem; cursor: pointer; color: var(--navy); background: none; border: none;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 74px;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 5% 6rem 8%;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 28px; height: 1px; background: var(--gold);
+  }
+  .hero-left h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 4.8rem);
+    font-weight: 600; line-height: 1.05;
+    color: var(--navy); margin-bottom: 1.75rem;
+    letter-spacing: -0.01em;
+  }
+  .hero-left h1 em {
+    font-style: italic; color: var(--navy-light);
+  }
+  .hero-tagline {
+    font-size: 1rem; line-height: 1.7; color: var(--text-muted);
+    max-width: 440px; margin-bottom: 2.5rem;
+    font-style: italic;
+    border-left: 2px solid var(--gold);
+    padding-left: 1rem;
+  }
+  .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--navy); color: var(--white);
+    padding: 0.85rem 2rem; border-radius: 4px;
+    text-decoration: none; font-size: 0.88rem;
+    font-weight: 500; letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--navy-light); transform: translateY(-1px); }
+  .btn-outline {
+    border: 1.5px solid var(--navy); color: var(--navy);
+    padding: 0.85rem 2rem; border-radius: 4px;
+    text-decoration: none; font-size: 0.88rem;
+    font-weight: 500; letter-spacing: 0.04em;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { background: var(--navy); color: var(--white); }
+  .hero-right {
+    background: var(--navy);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-right-inner {
+    position: relative; z-index: 2;
+    text-align: center; padding: 3rem;
+  }
+  .hero-cross-large {
+    width: 80px; height: 80px; position: relative;
+    margin: 0 auto 2.5rem;
+  }
+  .hero-cross-large::before,
+  .hero-cross-large::after {
+    content: ''; position: absolute;
+    background: rgba(201,168,76,0.4); border-radius: 3px;
+  }
+  .hero-cross-large::before { width: 6px; height: 100%; left: 50%; transform: translateX(-50%); }
+  .hero-cross-large::after  { width: 100%; height: 6px; top: 36%; }
+  .hero-verse {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; color: rgba(255,255,255,0.85);
+    line-height: 1.6; max-width: 280px; margin: 0 auto 0.75rem;
+    font-style: italic;
+  }
+  .hero-verse-ref {
+    font-size: 0.78rem; color: var(--gold); letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .hero-bg-circles {
+    position: absolute; inset: 0; z-index: 1;
+  }
+  .hero-bg-circles span {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .hero-bg-circles span:nth-child(1) { width: 500px; height: 500px; top: -100px; right: -100px; }
+  .hero-bg-circles span:nth-child(2) { width: 300px; height: 300px; bottom: -50px; left: -50px; }
+  .hero-stats {
+    display: flex; gap: 2.5rem; margin-top: 3rem;
+  }
+  .hero-stat .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 600; color: var(--navy);
+  }
+  .hero-stat .lbl {
+    font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.04em;
+    margin-top: 2px;
+  }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 6rem 5%; }
+  .section-label {
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 600; color: var(--navy);
+    line-height: 1.1; margin-bottom: 1rem;
+  }
+  .section-sub {
+    color: var(--text-muted); font-size: 0.95rem;
+    line-height: 1.7; max-width: 520px;
+  }
+  .text-center { text-align: center; }
+  .text-center .section-label { justify-content: center; }
+  .text-center .section-label::before { display: none; }
+  .text-center .section-sub { margin: 0 auto; }
+
+  /* ── WHY US ── */
+  #why { background: var(--off-white); }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; margin-top: 3.5rem;
+    border: 2px solid var(--navy);
+    border-radius: 8px; overflow: hidden;
+  }
+  .why-card {
+    background: var(--white); padding: 2.5rem 2rem;
+    border-right: 2px solid var(--navy);
+    transition: background 0.25s;
+  }
+  .why-card:last-child { border-right: none; }
+  .why-card:hover { background: var(--navy); }
+  .why-card:hover .why-icon, .why-card:hover h3, .why-card:hover p { color: var(--white); }
+  .why-icon { font-size: 1.4rem; margin-bottom: 1.25rem; }
+  .why-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 600; color: var(--navy);
+    margin-bottom: 0.6rem; transition: color 0.25s;
+  }
+  .why-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; transition: color 0.25s; }
+
+  /* ── SERVICES / PRICING ── */
+  #services { background: var(--white); }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+  .pricing-card {
+    border: 1.5px solid var(--border);
+    border-radius: 8px; overflow: hidden;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .pricing-card:hover { box-shadow: 0 8px 32px rgba(14,30,58,0.1); transform: translateY(-3px); }
+  .pricing-card.featured {
+    border-color: var(--navy);
+    box-shadow: 0 4px 20px rgba(14,30,58,0.12);
+  }
+  .pricing-badge {
+    background: var(--navy); color: var(--white);
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; text-align: center;
+    padding: 0.4rem;
+  }
+  .pricing-body { padding: 1.75rem; }
+  .pricing-body h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600; color: var(--navy);
+    margin-bottom: 0.5rem;
+  }
+  .pricing-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.25rem; }
+  .pricing-price {
+    margin-bottom: 1.5rem;
+  }
+  .pricing-from { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .pricing-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem; font-weight: 600; color: var(--navy);
+    line-height: 1;
+  }
+  .pricing-note { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+  .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .pricing-features li {
+    font-size: 0.84rem; color: var(--navy);
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .pricing-features li::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold); flex-shrink: 0; margin-top: 6px;
+  }
+  .pricing-cta {
+    display: block; text-align: center; margin-top: 1.75rem;
+    background: var(--navy); color: var(--white);
+    padding: 0.75rem; border-radius: 4px; text-decoration: none;
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em;
+    transition: background 0.2s;
+  }
+  .pricing-cta:hover { background: var(--navy-light); }
+  .pricing-note-box {
+    margin-top: 2rem; padding: 1.25rem 1.5rem;
+    background: var(--off-white); border-left: 3px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;
+  }
+
+  /* ── HOW IT WORKS ── */
+  #process { background: var(--navy); }
+  #process .section-label { color: var(--gold-light); }
+  #process .section-label::before { background: var(--gold-light); }
+  #process .section-title { color: var(--white); }
+  #process .section-sub { color: rgba(255,255,255,0.55); }
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-top: 3.5rem;
+    position: relative;
+  }
+  .process-steps::before {
+    content: ''; position: absolute;
+    top: 28px; left: calc(12.5% + 20px); right: calc(12.5% + 20px);
+    height: 1px; background: rgba(255,255,255,0.12);
+  }
+  .process-step { text-align: center; padding: 0 1.5rem; }
+  .step-num {
+    width: 56px; height: 56px; border-radius: 50%;
+    border: 1.5px solid rgba(201,168,76,0.4);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; font-weight: 600; color: var(--gold);
+    background: var(--navy); position: relative; z-index: 1;
+  }
+  .process-step h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; font-weight: 600; color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .process-step p { font-size: 0.83rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+  /* ── SERVICE AREA ── */
+  #area { background: var(--off-white); }
+  .area-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center; margin-top: 3.5rem;
+  }
+  .area-map {
+    background: var(--navy); border-radius: 8px;
+    aspect-ratio: 4/3; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .area-map svg { width: 100%; height: 100%; }
+  .area-details h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 600; color: var(--navy); margin-bottom: 1rem;
+  }
+  .area-details p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.75rem; }
+  .area-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .area-tag {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: 3px; padding: 0.35rem 0.75rem;
+    font-size: 0.78rem; color: var(--navy); font-weight: 400;
+  }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--white); }
+  .contact-inner {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; margin-top: 3.5rem;
+  }
+  .contact-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 600; color: var(--navy); margin-bottom: 1rem;
+  }
+  .contact-info p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 2rem; }
+  .contact-item {
+    display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.25rem;
+  }
+  .contact-icon {
+    width: 36px; height: 36px; border-radius: 4px;
+    background: var(--off-white); display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 0.9rem;
+  }
+  .contact-item-text .lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .contact-item-text .val { font-size: 0.9rem; color: var(--navy); font-weight: 400; }
+
+  /* Form */
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.78rem; font-weight: 500; color: var(--navy); letter-spacing: 0.04em; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    border: 1.5px solid var(--border);
+    border-radius: 4px; padding: 0.7rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem; color: var(--navy);
+    background: var(--off-white);
+    transition: border-color 0.2s, background 0.2s;
+    outline: none;
+    width: 100%;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--navy);
+    background: var(--white);
+  }
+  .form-group textarea { resize: vertical; min-height: 110px; }
+  .form-submit {
+    background: var(--navy); color: var(--white);
+    border: none; border-radius: 4px;
+    padding: 0.9rem 2rem; font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem; font-weight: 500; letter-spacing: 0.04em;
+    cursor: pointer; transition: background 0.2s;
+    align-self: flex-start;
+  }
+  .form-submit:hover { background: var(--navy-light); }
+  .form-success {
+    display: none; background: #edf6ed; border: 1px solid #a8d5a8;
+    border-radius: 4px; padding: 1rem 1.25rem;
+    font-size: 0.88rem; color: #2d6a2d; line-height: 1.5;
+  }
+
+  /* ── FAITH BANNER ── */
+  #faith {
+    background: var(--navy); padding: 4rem 5%;
+    text-align: center;
+  }
+  .faith-cross {
+    width: 40px; height: 40px; position: relative; margin: 0 auto 2rem;
+  }
+  .faith-cross::before, .faith-cross::after {
+    content: ''; position: absolute;
+    background: rgba(201,168,76,0.6); border-radius: 2px;
+  }
+  .faith-cross::before { width: 4px; height: 100%; left: 50%; transform: translateX(-50%); }
+  .faith-cross::after  { width: 100%; height: 4px; top: 38%; }
+  #faith blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 400; font-style: italic;
+    color: rgba(255,255,255,0.85); max-width: 700px;
+    margin: 0 auto 0.75rem; line-height: 1.5;
+  }
+  #faith cite {
+    font-size: 0.8rem; color: var(--gold); letter-spacing: 0.12em;
+    text-transform: uppercase; font-style: normal;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--off-white);
+    padding: 2.5rem 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo {
+    display: flex; align-items: center; gap: 8px;
+    text-decoration: none;
+  }
+  .footer-logo .cross { width: 16px; height: 16px; position: relative; }
+  .footer-logo .cross::before, .footer-logo .cross::after {
+    content: ''; position: absolute; background: var(--navy); border-radius: 1px;
+  }
+  .footer-logo .cross::before { width: 2px; height: 100%; left: 50%; transform: translateX(-50%); }
+  .footer-logo .cross::after  { width: 100%; height: 2px; top: 38%; }
+  .footer-logo span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; font-weight: 600; color: var(--navy);
+  }
+  footer p { font-size: 0.78rem; color: var(--text-muted); }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { font-size: 0.78rem; color: var(--text-muted); text-decoration: none; }
+  .footer-links a:hover { color: var(--navy); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { min-height: 320px; }
+    .why-grid { grid-template-columns: 1fr; }
+    .why-card { border-right: none; border-bottom: 2px solid var(--navy); }
+    .why-card:last-child { border-bottom: none; }
+    .process-steps { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .process-steps::before { display: none; }
+    .area-inner, .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+  @media (max-width: 600px) {
+    .hero-left { padding: 3rem 5%; }
+    section { padding: 4rem 5%; }
+    .process-steps { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 1.5rem; }
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.7s ease both; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="cross"></div>
+    <span>Faithful Detailing</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">How It Works</a></li>
+    <li><a href="#area">Service Area</a></li>
+    <li><a href="#contact" class="nav-cta">Book Now</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()">✕</button>
+  <a href="#why" onclick="toggleMenu()">Why Us</a>
+  <a href="#services" onclick="toggleMenu()">Services</a>
+  <a href="#process" onclick="toggleMenu()">How It Works</a>
+  <a href="#area" onclick="toggleMenu()">Service Area</a>
+  <a href="#contact" onclick="toggleMenu()">Book Now</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow fade-up">West Chester, OH · Mobile Detailing</p>
+    <h1 class="fade-up delay-1">We love your<br/><em>car more</em><br/>than you do.</h1>
+    <p class="hero-tagline fade-up delay-2">Don't believe us? Just let us detail your car.</p>
+    <div class="hero-buttons fade-up delay-3">
+      <a href="#contact" class="btn-primary">Book a Detail</a>
+      <a href="#services" class="btn-outline">View Pricing</a>
+    </div>
+    <div class="hero-stats fade-up delay-4">
+      <div class="hero-stat">
+        <div class="num">30 mi</div>
+        <div class="lbl">Service radius</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">100%</div>
+        <div class="lbl">Mobile & on-site</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">Faith</div>
+        <div class="lbl">Driven work ethic</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-circles"><span></span><span></span></div>
+    <div class="hero-right-inner">
+      <div class="hero-cross-large"></div>
+      <p class="hero-verse">"Whatever you do, work at it with all your heart, as working for the Lord."</p>
+      <p class="hero-verse-ref">Colossians 3:23</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <p class="section-label">Why Faithful</p>
+  <h2 class="section-title">Quality you can trust.<br/>Service you can feel.</h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">✦</div>
+      <h3>We Come to You</h3>
+      <p>Fully mobile — we bring everything needed to your home, office, or anywhere convenient. No drop-off. No waiting rooms.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">✦</div>
+      <h3>Faith-Driven Standard</h3>
+      <p>We work like it matters — because to us it does. Every detail is done with integrity, honesty, and genuine care for your vehicle.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">✦</div>
+      <h3>Pro Equipment</h3>
+      <p>We show up with professional-grade tools and products. Not shortcuts. Not approximations. The real thing, every time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES / PRICING -->
+<section id="services">
+  <p class="section-label text-center" style="justify-content:center;">Services &amp; Pricing</p>
+  <h2 class="section-title text-center">Transparent pricing.<br/>No surprises.</h2>
+  <p class="section-sub text-center" style="margin:0.75rem auto 0;">Pricing varies by vehicle size. All quotes confirmed before we start.</p>
+
+  <div class="pricing-grid">
+
+    <div class="pricing-card">
+      <div class="pricing-body">
+        <h3>Exterior Detail</h3>
+        <p class="pricing-desc">Hand wash, wheel clean, tire dressing, window exterior, and hand dry. Your car's first impression — restored.</p>
+        <div class="pricing-price">
+          <div class="pricing-from">Starting at</div>
+          <div class="pricing-amount">$75</div>
+          <div class="pricing-note">Sedans · SUVs from $90 · Trucks from $100</div>
+        </div>
+        <ul class="pricing-features">
+          <li>Full hand wash & dry</li>
+          <li>Wheel & tire cleaning</li>
+          <li>Tire dressing</li>
+          <li>Exterior glass cleaning</li>
+          <li>Door jamb wipe-down</li>
+        </ul>
+        <a href="#contact" class="pricing-cta">Book This</a>
+      </div>
+    </div>
+
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="pricing-body">
+        <h3>Full Interior Detail</h3>
+        <p class="pricing-desc">Deep vacuum, steam clean, leather conditioning, odor elimination, and every surface restored to like-new.</p>
+        <div class="pricing-price">
+          <div class="pricing-from">Starting at</div>
+          <div class="pricing-amount">$120</div>
+          <div class="pricing-note">Sedans · SUVs from $145 · Trucks from $155</div>
+        </div>
+        <ul class="pricing-features">
+          <li>Full vacuum (seats, carpet, trunk)</li>
+          <li>Dashboard & console wipe-down</li>
+          <li>Interior glass cleaning</li>
+          <li>Door panel detailing</li>
+          <li>Odor treatment</li>
+          <li>Leather/vinyl conditioning</li>
+        </ul>
+        <a href="#contact" class="pricing-cta">Book This</a>
+      </div>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-body">
+        <h3>Full Detail Package</h3>
+        <p class="pricing-desc">Interior + exterior combined for the complete treatment. The best value. The full Faithful experience.</p>
+        <div class="pricing-price">
+          <div class="pricing-from">Starting at</div>
+          <div class="pricing-amount">$175</div>
+          <div class="pricing-note">Sedans · SUVs from $215 · Trucks from $225</div>
+        </div>
+        <ul class="pricing-features">
+          <li>Everything in Exterior Detail</li>
+          <li>Everything in Interior Detail</li>
+          <li>Best value combination</li>
+        </ul>
+        <a href="#contact" class="pricing-cta">Book This</a>
+      </div>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-body">
+        <h3>Engine Bay Clean</h3>
+        <p class="pricing-desc">Degreased, rinsed, and dressed. A clean engine runs cooler, looks better, and sells higher.</p>
+        <div class="pricing-price">
+          <div class="pricing-from">Starting at</div>
+          <div class="pricing-amount">$60</div>
+          <div class="pricing-note">Add-on discount available with any full detail</div>
+        </div>
+        <ul class="pricing-features">
+          <li>Engine degreaser application</li>
+          <li>Low-pressure rinse</li>
+          <li>Plastic & rubber dressing</li>
+          <li>Dry &amp; inspect</li>
+        </ul>
+        <a href="#contact" class="pricing-cta">Book This</a>
+      </div>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-body">
+        <h3>Headlight Restoration</h3>
+        <p class="pricing-desc">Yellowed, foggy lenses restored to crystal clarity. Safer to drive, and it shows.</p>
+        <div class="pricing-price">
+          <div class="pricing-from">Starting at</div>
+          <div class="pricing-amount">$45</div>
+          <div class="pricing-note">Per pair · Add-on or standalone</div>
+        </div>
+        <ul class="pricing-features">
+          <li>Wet sanding (multi-grit)</li>
+          <li>Polish & compound</li>
+          <li>UV sealant coat</li>
+          <li>Before &amp; after comparison</li>
+        </ul>
+        <a href="#contact" class="pricing-cta">Book This</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="pricing-note-box">
+    <strong>Not sure what you need?</strong> Just reach out — we'll assess your vehicle and recommend the right service. All prices are confirmed with you before any work begins. No hidden fees.
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="process">
+  <p class="section-label">The Process</p>
+  <h2 class="section-title" style="color:var(--white);">Simple from start<br/>to finish.</h2>
+  <div class="process-steps">
+    <div class="process-step">
+      <div class="step-num">1</div>
+      <h4>Book Online</h4>
+      <p>Fill out our quick contact form with your vehicle info, service choice, and preferred time.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">2</div>
+      <h4>We Confirm</h4>
+      <p>We reach out to confirm your appointment, answer questions, and finalize pricing.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">3</div>
+      <h4>We Come to You</h4>
+      <p>Our team arrives on time with all equipment — no drop-off needed. You do nothing.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">4</div>
+      <h4>Drive Proud</h4>
+      <p>Pick up your keys, admire the work, and drive away like it just rolled off the lot.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE AREA -->
+<section id="area">
+  <p class="section-label">Where We Serve</p>
+  <h2 class="section-title">Based in West Chester.<br/>We drive to you.</h2>
+  <div class="area-inner">
+    <div class="area-map">
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="200" cy="150" r="110" fill="rgba(255,255,255,0.04)" stroke="rgba(201,168,76,0.25)" stroke-width="1" stroke-dasharray="6 4"/>
+        <circle cx="200" cy="150" r="70"  fill="rgba(255,255,255,0.04)" stroke="rgba(201,168,76,0.3)" stroke-width="1" stroke-dasharray="4 3"/>
+        <circle cx="200" cy="150" r="35"  fill="rgba(201,168,76,0.08)" stroke="rgba(201,168,76,0.5)" stroke-width="1.5"/>
+        <!-- Center pin -->
+        <circle cx="200" cy="150" r="7" fill="#c9a84c"/>
+        <line x1="200" y1="143" x2="200" y2="125" stroke="#c9a84c" stroke-width="1.5"/>
+        <!-- Labels -->
+        <text x="200" y="118" font-family="DM Sans, sans-serif" font-size="9" fill="rgba(255,255,255,0.5)" text-anchor="middle">West Chester, OH</text>
+        <text x="200" y="275" font-family="DM Sans, sans-serif" font-size="8" fill="rgba(255,255,255,0.3)" text-anchor="middle">~30 min radius</text>
+        <!-- Compass -->
+        <text x="200" y="42" font-family="DM Sans, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">N</text>
+        <text x="318" y="154" font-family="DM Sans, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">E</text>
+        <text x="200" y="265" font-family="DM Sans, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">S</text>
+        <text x="82" y="154" font-family="DM Sans, sans-serif" font-size="8" fill="rgba(255,255,255,0.25)" text-anchor="middle">W</text>
+      </svg>
+    </div>
+    <div class="area-details">
+      <h3>West Chester, OH &amp; surrounding areas</h3>
+      <p>We're based in West Chester and travel up to 30 minutes to bring the detail to you — no extra fee for travel within our zone. Just pick a time, tell us where to show up, and we handle the rest.</p>
+      <div class="area-tags">
+        <span class="area-tag">West Chester</span>
+        <span class="area-tag">Mason</span>
+        <span class="area-tag">Liberty Township</span>
+        <span class="area-tag">Fairfield</span>
+        <span class="area-tag">Loveland</span>
+        <span class="area-tag">Blue Ash</span>
+        <span class="area-tag">Montgomery</span>
+        <span class="area-tag">Hamilton</span>
+        <span class="area-tag">Middletown</span>
+        <span class="area-tag">Cincinnati (N.)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAITH BANNER -->
+<section id="faith">
+  <div class="faith-cross"></div>
+  <blockquote>"Whatever you do, do it all for the glory of God."</blockquote>
+  <cite>1 Corinthians 10:31</cite>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Get in Touch</p>
+  <h2 class="section-title">Book your detail.<br/>We'll take it from here.</h2>
+  <div class="contact-inner">
+    <div class="contact-info">
+      <h3>Let's get your car looking like new.</h3>
+      <p>Fill out the form and we'll get back to you within a few hours to confirm your appointment and answer any questions. No pressure — just honest service.</p>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div class="contact-item-text">
+          <div class="lbl">Based In</div>
+          <div class="val">West Chester, OH 45069</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div class="contact-item-text">
+          <div class="lbl">Phone / Text</div>
+          <div class="val">(555) 000-0000</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <div class="contact-item-text">
+          <div class="lbl">Email</div>
+          <div class="val">hello@faithfuldetailing.com</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div class="contact-item-text">
+          <div class="lbl">Hours</div>
+          <div class="val">Mon–Sat · 8 AM – 6 PM</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" placeholder="John" required />
+          </div>
+          <div class="form-group">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" placeholder="Smith" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="john@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone / Text</label>
+            <input type="tel" id="phone" placeholder="(513) 555-0000" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="service">Service Interested In</label>
+          <select id="service">
+            <option value="">Select a service…</option>
+            <option>Exterior Detail – from $75</option>
+            <option>Interior Detail – from $120</option>
+            <option>Full Detail Package – from $175</option>
+            <option>Engine Bay Clean – from $60</option>
+            <option>Headlight Restoration – from $45</option>
+            <option>Not sure – I'd like a recommendation</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="vehicle">Vehicle (Year, Make, Model)</label>
+          <input type="text" id="vehicle" placeholder="e.g. 2019 Honda Accord" />
+        </div>
+        <div class="form-group">
+          <label for="message">Anything else we should know?</label>
+          <textarea id="message" placeholder="Location, scheduling preferences, condition of the vehicle…"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send My Request →</button>
+        <div class="form-success" id="formSuccess">
+          ✓ &nbsp;Thanks! We'll be in touch within a few hours to confirm your appointment. God bless!
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">
+    <div class="cross"></div>
+    <span>Faithful Detailing</span>
+  </a>
+  <p>© 2025 Faithful Detailing · West Chester, OH · Serving with integrity.</p>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#area">Service Area</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+  // Sticky nav shadow
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // Form submit (front-end only — replace with real backend/Formspree/etc.)
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('formSuccess').style.display = 'block';
+    e.target.querySelector('.form-submit').style.display = 'none';
+  }
+
+  // Fade-in on scroll
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.pricing-card, .why-card, .process-step, .contact-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>
